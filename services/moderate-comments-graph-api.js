@@ -56,4 +56,18 @@ module.exports = class GraphApi {
       this.moderateComments_of_ig_media(ig_media);
     }
   }
+
+  // call this function, to check all comments of all medias of a user
+  static async moderateComments() {
+    let url = new URL(`https://graph.facebook.com/v13.0/${config.ig_userId}/media?access_token=${config.userAccessToken}`)
+    console.log(url);
+    let response = await fetch(url)
+      .then(async (res) => {
+        return await res.json();
+      });
+    let ig_medias = response.data;
+    console.log(ig_medias);
+    console.log(response);
+    this.moderateComments_of_ig_medias(ig_medias);
+  }
 };
